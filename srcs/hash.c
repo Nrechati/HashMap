@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:05:01 by nrechati          #+#    #+#             */
-/*   Updated: 2019/03/21 16:08:50 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/03/21 18:25:42 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ uint32_t	ft_hash_str(char *key)
 	return hash;
 }
 
-int ft_norm_hash(uint32_t hash, int tab_size)
+uint32_t ft_norm_hash(uint32_t hash, size_t tab_size)
 {
-	int n_hash;
+	uint32_t n_hash;
 
 	n_hash = hash & (tab_size - 1);
 	return (n_hash);
