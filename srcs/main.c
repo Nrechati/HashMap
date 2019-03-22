@@ -6,32 +6,22 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:08:36 by nrechati          #+#    #+#             */
-/*   Updated: 2019/03/21 18:43:27 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/03/22 14:20:30 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "hashmap.h"
 #include <stdio.h>
-#define MAP_SIZE 128
-									//TODO : Insertion multiple time same key
-void	del_hnode(t_list	*node)
-{
-	free(((t_hnode*)node->data)->key);
-	((t_hnode*)node->data)->key = NULL;
-	free(((t_hnode *)node->data)->data);
-	((t_hnode *)node->data)->data = NULL;
-	free(node->data);
-	free(node);
-}
+#define MAP_SIZE 128	//TODO : Insertion multiple time same key
 
-void	print_hashmap(t_hash *hashmap)
+void		print_hashmap(t_hash *hashmap)
 {
-	ft_printf("\n		. . . Printing . . .\n\n");
 	size_t		i;
 	t_list		*ptr;
 
 	i = 0;
+	ft_printf("\n		. . . Printing . . .\n\n");
 	while (i < hashmap->map_size)
 	{
 		if (hashmap->map[i] != NULL)
@@ -50,10 +40,10 @@ void	print_hashmap(t_hash *hashmap)
 	}
 }
 
-int		create_hnode(t_list **alst, char *key, void *data)
+int			create_hnode(t_list **alst, char *key, void *data)
 {
-	t_hnode h_node;
-	t_list *newdir;
+	t_hnode		h_node;
+	t_list		*newdir;
 
 	if (key == NULL)
 		return (0);
@@ -68,7 +58,7 @@ int		create_hnode(t_list **alst, char *key, void *data)
 	return (1);
 }
 
-t_hash	ft_init_hashmap(void)
+t_hash		ft_init_hashmap(void)
 {
 	t_hash data;
 
@@ -78,20 +68,42 @@ t_hash	ft_init_hashmap(void)
 	return (data);
 }
 
-int		ft_hash_remove(t_hash *hashmap, char *key) //CHECK FIRST
+void		del_hnode(void *node)
+{
+	free(((t_hnode*)node)->key);
+	((t_hnode *)node)->key = NULL;
+	free(((t_hnode *)node)->data);
+	((t_hnode *)node)->data = NULL;
+	free(node);
+}
+
+int			ft_hash_remove(t_hash *hashmap, char *key, void (*del)(void *))
 {
 	uint32_t	hash;
 	t_list		*ptr;
 	t_list		*tmp;
+	t_hnode		*data;
 
 	hash = ft_norm_hash(ft_hash_str(key), hashmap->map_size);
-	ptr = hashmap->map[hash];
+	if (!(ptr = hashmap->map[hash]))
+		return (0);
+	data = ((t_hnode *)hashmap->map[hash]->data);
+	if (!ft_strcmp(data->key, key))
+	{
+		tmp = hashmap->map[hash];
+		hashmap->map[hash] = hashmap->map[hash]->next;
+		del(data);
+		free(tmp);
+		return (1);
+	}
 	while (ptr->next != NULL)
 	{
-		if (!ft_strcmp(((t_hnode*)ptr->next->data)->key, key))
+		data = ((t_hnode *)ptr->next->data);
+		if (!ft_strcmp(data->key, key))
 		{
 			tmp = ptr->next->next;
-			del_hnode(ptr->next);
+			del(data);
+			free(ptr->next);
 			ptr->next = tmp;
 		}
 		ptr = ptr->next;
@@ -101,11 +113,12 @@ int		ft_hash_remove(t_hash *hashmap, char *key) //CHECK FIRST
 	return (1);
 }
 
-int		ft_hash_insert(t_hash *hashmap, char *key, void *data)
+int			ft_hash_insert(t_hash *hashmap, char *key, void *data)
 {
 	uint32_t hash;
 
 	hash = ft_norm_hash(ft_hash_str(key), hashmap->map_size);
+	// check if value exists (new fct)
 	ft_printf("%s Hash = %u\n", key, hash);
 	if (!create_hnode(&hashmap->map[hash], key, data))
 		return (0);
@@ -113,9 +126,10 @@ int		ft_hash_insert(t_hash *hashmap, char *key, void *data)
 	return (1);
 }
 
-int		main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	int		i;
+	void	*data;
 	t_hash	hashmap;
 
 	i = 1;
@@ -128,13 +142,18 @@ int		main(int ac, char **av)
 		return (0);
 	while (av[i] != NULL)
 	{
+		data = ft_strdup(av[i + 1]);
+		if (!data)
+			return (0);
 		ft_printf("Adding %s Key with %s Data\n", av[i], av[i + 1]);
-		ft_hash_insert(&hashmap, av[i], av[i + 1]);
+		ft_hash_insert(&hashmap, av[i], data);
 		i += 2;
 	}
 	print_hashmap(&hashmap);
-	ft_hash_remove(&hashmap, "ls");
-	ft_hash_remove(&hashmap, "echo");
+	ft_hash_remove(&hashmap, "ls", del_hnode);
+	ft_hash_remove(&hashmap, "echo", del_hnode);
+	ft_hash_remove(&hashmap, "cd", del_hnode);
 	print_hashmap(&hashmap);
+	//free(hashmap);
 	return (0);
 }
