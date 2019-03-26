@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:08:36 by nrechati          #+#    #+#             */
-/*   Updated: 2019/03/22 14:20:30 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/03/26 11:26:08 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,27 @@
 #include <stdio.h>
 #define MAP_SIZE 128	//TODO : Insertion multiple time same key
 
-void		print_hashmap(t_hash *hashmap)
+void		*ft_hashmap_getdata(t_hash *hashmap, char *key)
+{
+	uint32_t	hash;
+	t_list		*ptr;
+	t_hnode		*node;
+
+
+	hash = ft_norm_hash(ft_hash_str(key), hashmap->map_size);
+	if (!(ptr = hashmap->map[hash]))
+		return (0);
+	while (ptr != NULL)
+	{
+		node = ((t_hnode *)ptr->data);
+		if (!ft_strcmp(node->key, key))
+			return (node->data);
+		ptr = ptr->next;
+	}
+	return (0);
+}
+
+void		ft_print_hashmap(t_hash *hashmap)
 {
 	size_t		i;
 	t_list		*ptr;
@@ -105,20 +125,22 @@ int			ft_hash_remove(t_hash *hashmap, char *key, void (*del)(void *))
 			del(data);
 			free(ptr->next);
 			ptr->next = tmp;
+			if (hashmap->used > 0)
+				hashmap->used -= 1;
+			return (1);
 		}
 		ptr = ptr->next;
 	}
-	if (hashmap->used > 0)
-		hashmap->used -= 1;
-	return (1);
+	return (0);
 }
 
 int			ft_hash_insert(t_hash *hashmap, char *key, void *data)
 {
 	uint32_t hash;
 
+	if (ft_hashmap_getdata(hashmap, key))
+		return (0);
 	hash = ft_norm_hash(ft_hash_str(key), hashmap->map_size);
-	// check if value exists (new fct)
 	ft_printf("%s Hash = %u\n", key, hash);
 	if (!create_hnode(&hashmap->map[hash], key, data))
 		return (0);
@@ -149,11 +171,11 @@ int			main(int ac, char **av)
 		ft_hash_insert(&hashmap, av[i], data);
 		i += 2;
 	}
-	print_hashmap(&hashmap);
-	ft_hash_remove(&hashmap, "ls", del_hnode);
-	ft_hash_remove(&hashmap, "echo", del_hnode);
-	ft_hash_remove(&hashmap, "cd", del_hnode);
-	print_hashmap(&hashmap);
-	//free(hashmap);
+	ft_print_hashmap(&hashmap);
+//	ft_hash_remove(&hashmap, "ls", del_hnode);
+//	ft_hash_remove(&hashmap, "echo", del_hnode);
+//	ft_hash_remove(&hashmap, "cd", del_hnode);
+//	print_hashmap(&hashmap);
+//	free(hashmap);
 	return (0);
 }
