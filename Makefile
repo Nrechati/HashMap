@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/04 17:06:21 by nrechati          #+#    #+#              #
-#    Updated: 2019/03/21 15:10:10 by nrechati         ###   ########.fr        #
+#    Updated: 2019/03/26 12:08:48 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,12 @@ LIB_AUX_DEPS = Libft/libft.a
 VPATH = ./srcs
 
 SRC += main.c
-SRC += hash.c
+SRC += ft_hash_str.c
+SRC += ft_hmap_getdata.c
+SRC += ft_hmap_init.c
+SRC += ft_hmap_insert.c
+SRC += ft_hmap_print.c
+SRC += ft_hmap_remove.c
 
 # *************** OBJ **************** #
 
