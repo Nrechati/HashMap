@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/04 17:06:21 by nrechati          #+#    #+#              #
-#    Updated: 2019/03/26 12:08:48 by nrechati         ###   ########.fr        #
+#    Updated: 2019/03/26 13:18:55 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC += ft_hmap_init.c
 SRC += ft_hmap_insert.c
 SRC += ft_hmap_print.c
 SRC += ft_hmap_remove.c
+SRC += ft_hmap_resize.c
 
 # *************** OBJ **************** #
 

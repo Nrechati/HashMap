@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:08:36 by nrechati          #+#    #+#             */
-/*   Updated: 2019/03/26 12:01:47 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/03/26 13:17:23 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,3 +49,14 @@ int			main(int ac, char **av)
 //	free(hashmap);
 	return (0);
 }
+
+/*
+tab = split(PATH)
+open tab[i]
+	while (ret = read tab[i])
+		if (access(ret) & X_OK)
+			insert (ret, tab[i]/ret)
+	closdir ret;
+
+ execve(ft_hmap_getdata(cmd));
+*/
