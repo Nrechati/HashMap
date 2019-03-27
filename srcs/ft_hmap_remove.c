@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 12:05:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/03/26 12:06:40 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/03/26 13:47:54 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int				ft_hash_remove(t_hash *hashmap, char *key, void (*del)(void *))
 		hashmap->map[hash] = hashmap->map[hash]->next;
 		ft_del_hnode(data, del);
 		free(tmp);
+		if (hashmap->used > 0)
+			hashmap->used -= 1;
 		return (1);
 	}
 	while (ptr->next != NULL)
