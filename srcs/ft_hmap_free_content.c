@@ -1,24 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hmap_init.c                                     :+:      :+:    :+:   */
+/*   ft_hmap_free_content.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/26 12:01:39 by nrechati          #+#    #+#             */
-/*   Updated: 2019/03/27 11:58:15 by nrechati         ###   ########.fr       */
+/*   Created: 2019/03/27 14:31:34 by nrechati          #+#    #+#             */
+/*   Updated: 2019/03/27 17:14:41 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "hashmap.h"
 
-t_hash	ft_init_hashmap(size_t size)
+void	ft_hmap_free_content(t_hash *hashmap, void (*del)(void *))
 {
-	t_hash data;
+	size_t	i;
+	t_list	*ptr;
+	t_list	*tmp;
+	t_hnode	*node;
 
-	data.used = 0;
-	data.map_size = size;
-	data.map = ft_memalloc(data.map_size * sizeof(t_list *));
-	return (data);
+	i = 0;
+	while (i < hashmap->map_size)
+	{
+		ptr = hashmap->map[i];
+		if (ptr)
+		{
+			while (ptr != NULL)
+			{
+				tmp = ptr;
+				ptr = ptr->next;
+				tmp->next = NULL;
+				node = (t_hnode *)tmp->data;
+				ft_del_hnode(node, del);
+				free(tmp);
+			}
+		}
+		i++;
+	}
+	free(hashmap->map);
+	hashmap->map = NULL;
 }

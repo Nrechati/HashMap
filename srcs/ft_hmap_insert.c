@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 12:07:05 by nrechati          #+#    #+#             */
-/*   Updated: 2019/03/26 12:09:41 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/03/27 17:18:52 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,25 @@ static int		ft_create_hnode(t_list **alst, char *key, void *data)
 		return (0);
 	if (!(newdir = ft_lstnew(&h_node, sizeof(t_hnode))))
 		return (0);
-	ft_lstaddend(alst, newdir);
+	ft_lstadd(alst, newdir);
 	return (1);
 }
 
-int				ft_hash_insert(t_hash *hashmap, char *key, void *data)
+int				ft_hmap_insert(t_hash *hashmap, char *key, void *data)
 {
 	uint32_t hash;
 
 	if (ft_hmap_getdata(hashmap, key))
 		return (0);
+	if (ft_hmap_filled(hashmap) > MAX_FILL)
+	{
+		if (!ft_hmap_resize(hashmap, hashmap->map_size << 1))
+		{
+			ft_dprintf(2, "SYSTEM FAILURE : Can't resize HMAP");
+			return (0);
+		}
+	}
 	hash = ft_hash_str(key, hashmap->map_size);
-	ft_printf("%s Hash = %u\n", key, hash);
 	if (!ft_create_hnode(&hashmap->map[hash], key, data))
 		return (0);
 	hashmap->used += 1;
