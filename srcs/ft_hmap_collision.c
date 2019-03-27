@@ -1,43 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hmap_free_content.c                             :+:      :+:    :+:   */
+/*   ft_hmap_collision.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/27 14:31:34 by nrechati          #+#    #+#             */
-/*   Updated: 2019/03/27 18:16:07 by nrechati         ###   ########.fr       */
+/*   Created: 2019/03/27 17:21:27 by nrechati          #+#    #+#             */
+/*   Updated: 2019/03/27 17:41:01 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "hashmap.h"
 
-void	ft_hmap_free_content(t_hash *hashmap, void (*del)(void *))
+size_t		ft_lst_len(t_list *alst)
+{
+	size_t	len;
+
+	len = 0;
+	while (alst != NULL)
+	{
+		len++;
+		alst = alst->next;
+	}
+	return (len);
+}
+
+
+size_t		ft_hmap_collision_rate(t_hash *hashmap)
+{
+	return ((ft_hmap_collision(hashmap) * 100) >> ft_get_two_pw(hashmap->map_size));
+}
+
+size_t		ft_hmap_collision(t_hash *hashmap)
 {
 	size_t	i;
+	size_t	collisions;
 	t_list	*ptr;
-	t_list	*tmp;
-	t_hnode	*node;
 
 	i = 0;
+	collisions = 0;
 	while (i < hashmap->map_size)
 	{
 		ptr = hashmap->map[i];
-		if (ptr)
+		if (ptr && ft_lst_len(ptr) > 1)
 		{
-			while (ptr != NULL)
-			{
-				tmp = ptr;
-				ptr = ptr->next;
-				tmp->next = NULL;
-				node = (t_hnode *)tmp->data;
-				ft_del_hnode(node, del);
-				free(tmp);
-			}
+			collisions += ft_lst_len(ptr);
 		}
 		i++;
 	}
-	free(hashmap->map);
-	hashmap->map = NULL;
+	return (collisions);
 }

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:07:32 by nrechati          #+#    #+#             */
-/*   Updated: 2019/03/27 15:41:18 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/03/27 17:32:35 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,7 @@ size_t			ft_get_two_pw(size_t nb);
 int				ft_hmap_resize(t_hash *hashmap, size_t nw_size);
 void			ft_hmap_free_content(t_hash *hashmap, void (*del)(void *));
 void			ft_del_hnode(void *node, void (*del)(void *));
+size_t			ft_hmap_collision(t_hash *hashmap);
+size_t			ft_hmap_collision_rate(t_hash *hashmap);
 
 #endif
