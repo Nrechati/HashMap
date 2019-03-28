@@ -6,14 +6,12 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:21:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/03/28 15:37:45 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/03/28 15:39:06 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "hashmap.h"
-
-
 
 size_t		ft_hmap_collision_rate(t_hash *hashmap)
 {

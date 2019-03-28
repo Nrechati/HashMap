@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 12:07:05 by nrechati          #+#    #+#             */
-/*   Updated: 2019/03/27 17:59:10 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/03/28 15:56:26 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 static int		ft_create_hnode(t_list **alst, char *key, void *data)
 {
-	t_hnode h_node;
-	t_list *newdir;
+	t_hnode		h_node;
+	t_list		*newdir;
 
 	if (key == NULL)
 		return (0);

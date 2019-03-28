@@ -6,26 +6,40 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 12:03:12 by nrechati          #+#    #+#             */
-/*   Updated: 2019/03/27 15:00:19 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/03/28 15:56:03 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "hashmap.h"
 
-void	ft_print_hashmap(t_hash *hashmap)
+static void		print_map_info(t_hash *hashmap)
 {
-	size_t		i;
-	size_t		fill;
-	t_list		*ptr;
+	size_t	fill;
 
-	i = 0;
 	fill = ft_hmap_filled_norm(hashmap);
 	if (fill < 20 || fill >= 70)
-		ft_printf("\n\x1b[31mMap size : %zu  ||  . . . Printing . . .  ||  Filled at %zu%%\x1b[0m\n\n", hashmap->map_size, fill);
+	{
+		ft_printf("\n\x1b[31mMap size : %zu ", hashmap->map_size);
+		ft_printf(" ||  . . . Printing . . .  || ");
+		ft_printf(" Filled at %zu%%\x1b[0m\n\n", fill);
+	}
 	else
-		ft_printf("\n\x1b[32mMap size : %zu  ||  . . . Printing . . .  ||  Filled at %zu%%\x1b[0m\n\n", hashmap->map_size, fill);
-	while (i < hashmap->map_size)
+	{
+		ft_printf("\n\x1b[32mMap size : %zu ", hashmap->map_size);
+		ft_printf(" ||  . . . Printing . . .  || ");
+		ft_printf(" Filled at %zu%%\x1b[0m\n\n", fill);
+	}
+}
+
+void			ft_print_hashmap(t_hash *hashmap)
+{
+	size_t		i;
+	t_list		*ptr;
+
+	i = -1;
+	print_map_info(hashmap);
+	while (++i < hashmap->map_size)
 	{
 		if (hashmap->map[i] != NULL)
 		{
@@ -39,6 +53,5 @@ void	ft_print_hashmap(t_hash *hashmap)
 			}
 			ft_printf(" NULL\n");
 		}
-		i++;
 	}
 }
