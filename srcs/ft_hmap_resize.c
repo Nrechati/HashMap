@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 13:18:15 by nrechati          #+#    #+#             */
-/*   Updated: 2019/03/28 16:01:56 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/02 15:21:07 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ size_t		ft_hmap_filled_norm(t_hash *hashmap)
 	return ((ft_hmap_filled(hashmap) * 100) >> POW_128);
 }
 
-static void	relocate_hash(t_hash *hashmap, t_list **new)
+static void	relocate_hash(t_hash *hashmap, t_list **new, size_t nw_size)
 {
 	size_t	i;
 	t_list	*ptr;
@@ -70,7 +70,7 @@ int			ft_hmap_resize(t_hash *hashmap, size_t nw_size)
 	new = ft_memalloc(nw_size * sizeof(t_list *));
 	if (!new)
 		return (0);
-	relocate_hash();
+	relocate_hash(hashmap, new, nw_size);
 	ft_printf("\n\n\x1b[33m => MAP RESIZED SUCCESSFULLY  || From filled = %zu%% ", ft_hmap_filled_norm(hashmap));
 	free(hashmap->map);
 	hashmap->map = new;
