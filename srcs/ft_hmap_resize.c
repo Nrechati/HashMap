@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 13:18:15 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/02 15:21:07 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/02 15:29:09 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,18 @@ static void	relocate_hash(t_hash *hashmap, t_list **new, size_t nw_size)
 
 int			ft_hmap_resize(t_hash *hashmap, size_t nw_size)
 {
-
 	t_list		**new;
 
 	new = ft_memalloc(nw_size * sizeof(t_list *));
 	if (!new)
 		return (0);
 	relocate_hash(hashmap, new, nw_size);
-	ft_printf("\n\n\x1b[33m => MAP RESIZED SUCCESSFULLY  || From filled = %zu%% ", ft_hmap_filled_norm(hashmap));
+	ft_printf("\n\n\x1b[33m => MAP RESIZED SUCCESS  || From filled = %zu%% "
+		, ft_hmap_filled_norm(hashmap));
 	free(hashmap->map);
 	hashmap->map = new;
 	hashmap->map_size = nw_size;
-	ft_printf("To filled = %zu%% || NEW SIZE = %zu\x1b[0m\n\n", ft_hmap_filled_norm(hashmap), hashmap->map_size);
+	ft_printf("To filled = %zu%% || NEW SIZE = %zu\x1b[0m\n\n"
+		, ft_hmap_filled_norm(hashmap), hashmap->map_size);
 	return (1);
 }

@@ -6,14 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 12:05:50 by nrechati          #+#    #+#             */
-/*   Updated: 2019/03/27 18:16:55 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/02 16:20:05 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "hashmap.h"
 
-static int resize_check(t_hash *hashmap)
+static int		resize_check(t_hash *hashmap)
 {
 	size_t filled;
 
@@ -39,27 +39,51 @@ void			ft_del_hnode(void *node, void (*del)(void *))
 	free(node);
 }
 
+static int		remove_first(t_hash *hashmap, uint32_t hash
+								, t_hnode *data, void (*del)(void *))
+{
+	t_list	*tmp;
+
+	tmp = hashmap->map[hash];
+	hashmap->map[hash] = hashmap->map[hash]->next;
+	ft_del_hnode(data, del);
+	free(tmp);
+	if (hashmap->used > 0)
+		hashmap->used -= 1;
+	if (!resize_check(hashmap))
+		return (0);
+	return (1);
+}
+
+static int		remove_data(t_hash *hashmap, t_list *ptr
+								, t_hnode *data, void (*del)(void *))
+{
+	t_list *tmp;
+
+	tmp = ptr->next->next;
+	ft_del_hnode(data, del);
+	free(ptr->next);
+	ptr->next = tmp;
+	if (hashmap->used > 0)
+		hashmap->used -= 1;
+	if (!resize_check(hashmap))
+		return (0);
+	return (1);
+}
+
 int				ft_hmap_remove(t_hash *hashmap, char *key, void (*del)(void *))
 {
-	uint32_t hash;
-	t_list *ptr;
-	t_list *tmp;
-	t_hnode *data;
+	t_list		*ptr;
+	t_hnode		*data;
 
-	hash = ft_hash_str(key, hashmap->map_size);
-	if (!(ptr = hashmap->map[hash]))
+	if (!(ptr = hashmap->map[ft_hash_str(key, hashmap->map_size)]))
 		return (0);
-	data = ((t_hnode *)hashmap->map[hash]->data);
+	data = ((t_hnode *)hashmap->map[ft_hash_str(key, hashmap->map_size)]->data);
 	if (!ft_strcmp(data->key, key))
 	{
-		tmp = hashmap->map[hash];
-		hashmap->map[hash] = hashmap->map[hash]->next;
-		ft_del_hnode(data, del);
-		free(tmp);
-		if (hashmap->used > 0)
-			hashmap->used -= 1;
-		if (!resize_check(hashmap))
-			return(0);
+		if (!remove_first(hashmap, ft_hash_str(key, hashmap->map_size)
+															, data, del))
+			return (0);
 		return (1);
 	}
 	while (ptr->next != NULL)
@@ -67,13 +91,7 @@ int				ft_hmap_remove(t_hash *hashmap, char *key, void (*del)(void *))
 		data = ((t_hnode *)ptr->next->data);
 		if (!ft_strcmp(data->key, key))
 		{
-			tmp = ptr->next->next;
-			del(data);
-			free(ptr->next);
-			ptr->next = tmp;
-			if (hashmap->used > 0)
-				hashmap->used -= 1;
-			if (!resize_check(hashmap))
+			if (!remove_data(hashmap, ptr, data, del))
 				return (0);
 			return (1);
 		}

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:08:36 by nrechati          #+#    #+#             */
-/*   Updated: 2019/03/28 15:45:03 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/02 16:00:20 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,13 @@ int			main(int ac, char **av)
 	{
 		data = ft_strdup(av[i + 1]);
 		if (!data)
-			break;
+			break ;
 		if (!ft_hmap_insert(&hashmap, (av[i]), data))
 			free(data);
 		i += 2;
 	}
+	if (!ft_hmap_remove(&hashmap, "md5", free))
+		free(data);
 	ft_print_hashmap(&hashmap);
 	ft_printf("\n\n\x1b[32m SUMMARY || Final Map Size = %zu || Filled at %zu%% || Number of collisions = %zu || Collision Rate = %zu%%\x1b[0m\n"
 		, hashmap.map_size, ft_hmap_filled_norm(&hashmap)
@@ -43,19 +45,15 @@ int			main(int ac, char **av)
 }
 
 /*
-void	*hash(t_registre *hashmap)
-if (hashmap->map != NULL)
-	free_content(hashmap.map);
-	free(hasmap.map)
-tab = split(PATH)
-open tab[i]
-	while (ret = read tab[i])
-		if (access(ret) & X_OK)
-			insert ("cd", asptin(tab[i]/ret)
-	closdir ret;
-	i++;
-
-
-
- execve(ft_hmap_getdata(cmd));
+# void	*hash(t_registre *hashmap)
+#  if (hashmap->map != NULL)
+# 	free_content(hashmap.map);
+# 	free(hasmap.map)
+# tab = split(PATH)
+# 	open tab[i]
+# 		while (ret = read tab[i])
+# 			if (access(ret) & X_OK)
+# 				insert ("cd", asptin(tab[i]/ret)
+# 		closdir ret;
+# 	i++;
 */
