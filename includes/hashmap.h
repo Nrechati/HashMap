@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:07:32 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/02 15:51:25 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/03 15:44:28 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct	s_hnode
 }				t_hnode;
 
 uint32_t		ft_hash_str(char *key, size_t tab_size);
-t_hash			ft_init_hashmap(size_t size);
+t_hash			ft_hmap_init(size_t size);
 void			ft_print_hashmap(t_hash *hashmap);
 void			*ft_hmap_getdata(t_hash *hashmap, char *key);
 int				ft_hmap_remove(t_hash *hashmap, char *key, void (*del)(void *));

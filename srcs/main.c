@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:08:36 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/02 16:00:20 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/03 15:44:20 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int			main(int ac, char **av)
 	t_hash	hashmap;
 
 	i = 1;
-	hashmap = ft_init_hashmap(2048);
+	hashmap = ft_hmap_init(2048);
 	if (!hashmap.map)
 		return (0);
 	if (ac < 2)

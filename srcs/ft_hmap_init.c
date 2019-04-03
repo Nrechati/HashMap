@@ -6,14 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 12:01:39 by nrechati          #+#    #+#             */
-/*   Updated: 2019/03/27 11:58:15 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/04/03 15:49:57 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "hashmap.h"
 
-t_hash	ft_init_hashmap(size_t size)
+t_hash	ft_hmap_init(size_t size)
 {
 	t_hash data;
 
