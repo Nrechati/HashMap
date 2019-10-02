@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:08:36 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/03 15:44:20 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/10/02 12:37:43 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,3 @@ int			main(int ac, char **av)
 	ft_hmap_free_content(&hashmap, free);
 	return (0);
 }
-
-/*
-# void	*hash(t_registre *hashmap)
-#  if (hashmap->map != NULL)
-# 	free_content(hashmap.map);
-# 	free(hasmap.map)
-# tab = split(PATH)
-# 	open tab[i]
-# 		while (ret = read tab[i])
-# 			if (access(ret) & X_OK)
-# 				insert ("cd", asptin(tab[i]/ret)
-# 		closdir ret;
-# 	i++;
-*/
