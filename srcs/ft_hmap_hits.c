@@ -1,35 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hmap_getdata.c                                  :+:      :+:    :+:   */
+/*   ft_hmap_hits.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/26 11:54:44 by nrechati          #+#    #+#             */
-/*   Updated: 2019/06/05 10:10:23 by nrechati         ###   ########.fr       */
+/*   Created: 2019/06/04 16:46:55 by nrechati          #+#    #+#             */
+/*   Updated: 2019/06/04 17:03:36 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "hashmap.h"
+#define NOT_FOUND	-2
+#define MAX_HIT		-3
 
-void	*ft_hmap_getdata(t_hash *hashmap, char *key)
+int8_t		ft_hmap_hits(t_hash *hashmap, char *key)
 {
 	uint32_t	hash;
 	t_list		*ptr;
 	t_hnode		*node;
 
-	if (hashmap == NULL || key == NULL)
-		return (0);
 	hash = ft_hash_str(key, hashmap->map_size);
 	if (!(ptr = hashmap->map[hash]))
-		return (0);
+		return (FAILURE);
 	while (ptr != NULL)
 	{
 		node = ((t_hnode *)ptr->data);
 		if (!ft_strcmp(node->key, key))
-			return (node->data);
+		{
+			if (node->hits >= UINT32_MAX)
+				return (MAX_HIT);
+			node->hits += 1;
+			return (SUCCESS);
+		}
 		ptr = ptr->next;
 	}
-	return (0);
+	return (NOT_FOUND);
 }

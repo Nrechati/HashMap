@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 12:03:12 by nrechati          #+#    #+#             */
-/*   Updated: 2019/03/28 15:56:03 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/06/04 17:31:11 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,30 @@ static void		print_map_info(t_hash *hashmap)
 	}
 }
 
+void			ft_print_hashmap_p(t_hash *hashmap)
+{
+	size_t i;
+	t_list *ptr;
+
+	i = -1;
+	print_map_info(hashmap);
+	while (++i < hashmap->map_size)
+	{
+		if (hashmap->map[i] != NULL)
+		{
+			ft_printf("| %zu | :", i);
+			ptr = hashmap->map[i];
+			while (ptr != NULL)
+			{
+				ft_printf(" | Key = %s -> Data = %p | -"
+				, ((t_hnode *)ptr->data)->key, ((t_hnode *)ptr->data)->data);
+				ptr = ptr->next;
+			}
+			ft_printf(" NULL\n");
+		}
+	}
+}
+
 void			ft_print_hashmap(t_hash *hashmap)
 {
 	size_t		i;
@@ -52,6 +76,32 @@ void			ft_print_hashmap(t_hash *hashmap)
 				ptr = ptr->next;
 			}
 			ft_printf(" NULL\n");
+		}
+	}
+}
+
+void			ft_simplified_hash_print(t_hash *hashmap)
+{
+	size_t		i;
+	t_list		*ptr;
+
+	i = -1;
+	if (hashmap->used == 0)
+		return ;
+	ft_printf("%*s\t%-*s\t%s\n", 4, "hits", hashmap->print_pad, "bin", "path");
+	while (++i < hashmap->map_size)
+	{
+		if (hashmap->map[i] != NULL)
+		{
+			ptr = hashmap->map[i];
+			while (ptr != NULL)
+			{
+				ft_printf("%*d\t%-*s\t%s\n"
+				, 4, ((t_hnode*)ptr->data)->hits
+				, hashmap->print_pad, ((t_hnode*)ptr->data)->key
+				, ((t_hnode*)ptr->data)->data);
+				ptr = ptr->next;
+			}
 		}
 	}
 }

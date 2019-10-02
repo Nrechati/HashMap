@@ -6,38 +6,46 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 14:31:34 by nrechati          #+#    #+#             */
-/*   Updated: 2019/03/27 18:16:07 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/10/02 12:44:11 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "hashmap.h"
 
-void	ft_hmap_free_content(t_hash *hashmap, void (*del)(void *))
+static void		free_hnode_lst(t_list **ptr, void (*del)(void *))
 {
-	size_t	i;
-	t_list	*ptr;
 	t_list	*tmp;
 	t_hnode	*node;
 
+	while (*ptr != NULL)
+	{
+		tmp = *ptr;
+		*ptr = (*ptr)->next;
+		tmp->next = NULL;
+		node = (t_hnode *)tmp->data;
+		ft_del_hnode(node, del);
+		free(tmp);
+	}
+}
+
+void			ft_hmap_free_content(t_hash *hashmap, void (*del)(void *))
+{
+	size_t	i;
+	t_list	*ptr;
+
 	i = 0;
+	if (hashmap->used == 0)
+		return ;
 	while (i < hashmap->map_size)
 	{
 		ptr = hashmap->map[i];
 		if (ptr)
 		{
-			while (ptr != NULL)
-			{
-				tmp = ptr;
-				ptr = ptr->next;
-				tmp->next = NULL;
-				node = (t_hnode *)tmp->data;
-				ft_del_hnode(node, del);
-				free(tmp);
-			}
+			free_hnode_lst(&ptr, del);
+			hashmap->map[i] = NULL;
 		}
 		i++;
 	}
-	free(hashmap->map);
-	hashmap->map = NULL;
+	hashmap->used = 0;
 }

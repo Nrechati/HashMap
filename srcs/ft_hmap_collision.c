@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:21:27 by nrechati          #+#    #+#             */
-/*   Updated: 2019/03/28 15:39:06 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/05/29 18:41:26 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ size_t		ft_hmap_collision(t_hash *hashmap)
 	while (i < hashmap->map_size)
 	{
 		ptr = hashmap->map[i];
-		if (ptr && ft_lstsize(ptr) > 1)
+		if (ptr && ft_lstlen(ptr) > 1)
 		{
-			collisions += ft_lstsize(ptr);
+			collisions += ft_lstlen(ptr);
 		}
 		i++;
 	}

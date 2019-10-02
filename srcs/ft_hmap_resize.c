@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 13:18:15 by nrechati          #+#    #+#             */
-/*   Updated: 2019/04/02 15:29:09 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/10/02 12:44:04 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,8 @@ int			ft_hmap_resize(t_hash *hashmap, size_t nw_size)
 	if (!new)
 		return (0);
 	relocate_hash(hashmap, new, nw_size);
-	ft_printf("\n\n\x1b[33m => MAP RESIZED SUCCESS  || From filled = %zu%% "
-		, ft_hmap_filled_norm(hashmap));
 	free(hashmap->map);
 	hashmap->map = new;
 	hashmap->map_size = nw_size;
-	ft_printf("To filled = %zu%% || NEW SIZE = %zu\x1b[0m\n\n"
-		, ft_hmap_filled_norm(hashmap), hashmap->map_size);
 	return (1);
 }
