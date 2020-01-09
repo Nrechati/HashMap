@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:08:36 by nrechati          #+#    #+#             */
-/*   Updated: 2020/01/09 17:05:51 by nrechati         ###   ########.fr       */
+/*   Updated: 2020/01/09 17:08:59 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int			main(int ac, char **av)
 	** to remove a key use
 	** ft_hmap_remove(&hashmap, "key_to_rm", free);
 	*/
+
 	ft_print_hashmap(&hashmap);
 	ft_printf("\n\n\x1b[32m SUMMARY || Final Map Size = %zu || Filled at %zu%% || Number of collisions = %zu || Collision Rate = %zu%%\x1b[0m\n"
 		, hashmap.map_size, ft_hmap_filled_norm(&hashmap)
