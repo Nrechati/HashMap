@@ -2,7 +2,7 @@
 
 This project is homemade **HashMap** lib written in **C**
 
-This was first implemented as a ressources in my [42sh]([https://github.com/Nrechati/42sh](https://github.com/Nrechati/42sh)) project. The idea was to implement a first **generic, scalable, easy to use, "black box" library**, while still maintaining acceptable **performance** and a **low collision rate**. The goal was also to introduce myself to this strong data structure by coding one from scratch my self.
+This was first implemented as a ressources in my [42sh](https://github.com/Nrechati/42sh-UNIX-Shell) project. The idea was to implement a first **generic, scalable, easy to use, "black box" library**, while still maintaining acceptable **performance** and a **low collision rate**. The goal was also to introduce myself to this strong data structure by coding one from scratch my self.
 
 >  **Note** : 42 also forbid us to use standard lib in almost every case. Thus recoding this design pattern from scratch was my only way to use it in a school project.
 
@@ -12,7 +12,7 @@ This was first implemented as a ressources in my [42sh]([https://github.com/Nrec
 
 - Just `Make`
 
->**Note** : This project page is here to just **show the codebase** related to my HashMap. It compile just **my old libC with my HashMap** sources and give a **main** to test it. This lib was then integrated to my new homemade LibC for other project such as [42sh]([https://github.com/Nrechati/42sh]). So if you're here you cant more or less only **read this**  **README** and **look at my code** to see my own implementation. Feel free to do the workaround to include sources in your own lib if needed.
+>**Note** : This project page is here to just **show the codebase** related to my HashMap. It compile just **my old libC with my HashMap** sources and give a **main** to test it. This lib was then integrated to my new homemade LibC for other project such as [42sh](https://github.com/Nrechati/42sh-UNIX-Shell). So if you're here you cant more or less only **read this**  **README** and **look at my code** to see my own implementation. Feel free to do the workaround to include sources in your own lib if needed.
 
 ## Core feature
 
@@ -76,4 +76,4 @@ Even if this might not be useful or even optimal as compiler does a lot regardin
 
 ## Disclaimer
 
-This project was done in a **single week** and is my **first own library**. I had the need of an Hash map lib for my unix shell project *(see [42sh](https://github.com/Nrechati/42sh) project)*, so I built one. But since, I started to use it in a lot of project because I just find it to be a really strong data structure is some cases. I know a lot a this **C implementation could be nicer,** more optimize, and a lot of feature could have been added. **So just keep in mind this is an early student work**.
+This project was done in a **single week** and is my **first own library**. I had the need of an Hash map lib for my unix shell project *(see [42sh](https://github.com/Nrechati/42sh-UNIX-Shell) project)*, so I built one. But since, I started to use it in a lot of project because I just find it to be a really strong data structure is some cases. I know a lot a this **C implementation could be nicer,** more optimize, and a lot of feature could have been added. **So just keep in mind this is an early student work**.
